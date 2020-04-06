@@ -273,6 +273,7 @@ export const drawUtils = (ctx, canvasHeight, canvasWidth, pointsData) => {
   }
 
   const transform = (w) => {
+    ctx.clearRect(0, 0, 700, 700);
     drawGrid(ctx, canvasHeight, canvasWidth);
 
     const internalCircleArray = drawCircle(internalRadius, 0, 360, canvasWidth / 2, canvasHeight / 2);
@@ -297,8 +298,6 @@ export const drawUtils = (ctx, canvasHeight, canvasWidth, pointsData) => {
 
     const newDetailArray = matrixMultiplication(detailArray, data, w)
     drawByPoints(newDetailArray);
-
-    drawTextTooltip(ctx, canvasHeight, canvasWidth, externalRadius, internalRadius);
   }
 
   return { drawDefault, transform }

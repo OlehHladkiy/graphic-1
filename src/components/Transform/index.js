@@ -1,5 +1,5 @@
 import { Form, InputNumber, Button } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { drawUtils } from './util';
 
@@ -20,8 +20,13 @@ const Transform = ({ ctx, externalRadius, internalRadius, }) => {
     }
   }, [ctx])
 
+  const isFirstRender = useRef(true);
   useEffect(() => {
     if(ctx) {
+      if(isFirstRender.current) {
+        isFirstRender.current = false;
+        return;
+      }
       const { transform } = drawUtils(ctx, 700, 700, { delX, delY, x0, y0, m, n, alf, externalRadius, internalRadius });
       transform(1);
     }
@@ -35,8 +40,8 @@ const Transform = ({ ctx, externalRadius, internalRadius, }) => {
     setM(-350);
     setN(-350);
     setAlf(0);
-    const { drawDefault } = drawUtils(ctx, 700, 700, { delX, delY, x0, y0, m, n, alf, externalRadius, internalRadius });
-    drawDefault()
+    const { transform } = drawUtils(ctx, 700, 700, { delX, delY, x0, y0, m, n, alf, externalRadius, internalRadius });
+    transform(1)
   }
 
   return (
