@@ -64,10 +64,9 @@ const getDetailPoints = (canvasHeight, canvasWidth) => {
 
 const projectiveTransformationGrid = (elements, data) => {
   const { x0, y0, xx, xy, yx, yy, w0, wx, wy } = data;
-  const [...allElements] = elements;
-  const newMass = [];
-  allElements.forEach(elem => newMass.push({x: ((x0 * w0 + xx * wx * elem.x + xy * wy * elem.y)/(w0 + wx * elem.x + wy * elem.y)), y: ((y0 * w0 + yx * wx * elem.x + yy * wy * elem.y)/(w0 + wx * elem.x + wy * elem.y)), c: ((x0 * w0 + xx * wx * elem.c + xy * wy * elem.d)/(w0 + wx * elem.c + wy * elem.d)), d: ((y0 * w0 + yx * wx * elem.c + yy * wy * elem.d)/(w0 + wx * elem.c + wy * elem.d))}));
-  return newMass;
+  const newArr = [];
+  elements.forEach(elem => newArr.push({x: ((x0 * w0 + xx * wx * elem.x + xy * wy * elem.y)/(w0 + wx * elem.x + wy * elem.y)), y: ((y0 * w0 + yx * wx * elem.x + yy * wy * elem.y)/(w0 + wx * elem.x + wy * elem.y)), c: ((x0 * w0 + xx * wx * elem.c + xy * wy * elem.d)/(w0 + wx * elem.c + wy * elem.d)), d: ((y0 * w0 + yx * wx * elem.c + yy * wy * elem.d)/(w0 + wx * elem.c + wy * elem.d))}));
+  return newArr;
 }
 
 const buildGridByPoints = (ctx, elements) => {
@@ -75,8 +74,7 @@ const buildGridByPoints = (ctx, elements) => {
   ctx.beginPath();
   ctx.lineWidth = 1;
   ctx.strokeStyle = "black";
-  let [...allElements] = elements;
-  allElements.forEach(function(element){
+  elements.forEach(function(element){
       ctx.moveTo(element.x, element.y);
       ctx.lineTo(element.c, element.d);
   });
@@ -86,10 +84,9 @@ const buildGridByPoints = (ctx, elements) => {
 
 const projectiveTransformationDetail = (elements, data) => {
   const { x0, y0, xx, xy, yx, yy, w0, wx, wy } = data;
-  const [...allElements] = elements;
-  const newMass = [];
-  allElements.forEach(element => newMass.push({x: ((x0 * w0 + xx * wx * element.x + xy * wy * element.y)/(w0 + wx * element.x + wy * element.y)), y: ((y0 * w0 + yx * wx * element.x + yy * wy * element.y)/(w0 + wx * element.x + wy * element.y))}));
-  return newMass;
+  const newArr = [];
+  elements.forEach(element => newArr.push({x: ((x0 * w0 + xx * wx * element.x + xy * wy * element.y)/(w0 + wx * element.x + wy * element.y)), y: ((y0 * w0 + yx * wx * element.x + yy * wy * element.y)/(w0 + wx * element.x + wy * element.y))}));
+  return newArr;
 }
 
 const processProjectiveTransformationDetail = (elements, arr) => {
@@ -108,9 +105,9 @@ const drawDetailByPoint = (ctx, elements) => {
   ctx.beginPath();
   ctx.lineWidth = 3;
   ctx.strokeStyle = "black";
-  const [firstElement, ...allElements] = elements;
+  const [firstElement, ...restPoints] = elements;
   ctx.moveTo(firstElement.x, firstElement.y);
-  allElements.forEach(point => {
+  restPoints.forEach(point => {
       ctx.moveTo(point.x, point.y);
       ctx.lineTo(point.x1, point.y1);
   });

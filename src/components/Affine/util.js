@@ -64,10 +64,9 @@ const getDetailArray = (canvasHeight, canvasWidth) => {
 
 const affineTransformationGrid = (elements, data) => {
   const { x0, y0, xx, xy, yx,  yy } = data;
-  const [...allElements] = elements;
-  const newMass = [];
-  allElements.forEach(element => newMass.push({x: x0 + xx * element.x + xy * element.y, y: y0 + yx * element.x + yy * element.y, c: x0 + xx * element.c + xy * element.d, d: y0 + yx * element.c + yy * element.d}));
-  return newMass;
+  const newArr = [];
+  elements.forEach(element => newArr.push({x: x0 + xx * element.x + xy * element.y, y: y0 + yx * element.x + yy * element.y, c: x0 + xx * element.c + xy * element.d, d: y0 + yx * element.c + yy * element.d}));
+  return newArr;
 }
 
 const buildGridByPoints = (ctx, points) => {
@@ -75,8 +74,7 @@ const buildGridByPoints = (ctx, points) => {
   ctx.beginPath();
   ctx.lineWidth = 1;
   ctx.strokeStyle = 'black';
-  let [...allElements] = points;
-  allElements.forEach(function(element){
+  points.forEach(function(element){
       ctx.moveTo(element.x, element.y);
       ctx.lineTo(element.c, element.d);
   });
@@ -86,9 +84,8 @@ const buildGridByPoints = (ctx, points) => {
 
 const affineTransformationDetail = (elements, data) => {
   const { x0, y0, xx, xy, yx,  yy } = data;
-  const [...allElements] = elements;
   const newArr = [];
-  allElements.forEach(element => newArr.push({x: x0 + xx * element.x + xy * element.y, y: y0 + yx * element.x + yy * element.y}));
+  elements.forEach(element => newArr.push({x: x0 + xx * element.x + xy * element.y, y: y0 + yx * element.x + yy * element.y}));
   return newArr;
 }
 
@@ -105,7 +102,7 @@ const processAffineTransformationDetail = (elements, arr) => {
 }
 
 const buildDetail = (ctx, elements) => {
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 1;
   ctx.strokeStyle = "black";
   const [firstPoint, ...restPoints] = elements;
   ctx.moveTo(firstPoint.x, firstPoint.y);
