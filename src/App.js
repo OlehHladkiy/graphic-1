@@ -1,5 +1,5 @@
 import { Radio, Form, InputNumber } from 'antd';
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 
 import Projective from './components/Projective';
